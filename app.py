@@ -55,7 +55,7 @@ class Task(db.Model):
 # INDEX
 @app.route('/')
 def index():
-    return render_template("index.html", current_user = current_user)
+    return render_template("index.html")
 
 # TO-DO
 @app.route('/todo')
@@ -233,4 +233,3 @@ def deleteCategory(cat_id):
 if __name__=='__main__':
     db.create_all()
     app.run(debug=True)
-    # login_manager.init_app(app)
