@@ -14,7 +14,6 @@ db = SQLAlchemy(app) # SQLAlchemy Object
 # LOGIN MANAGER
 login_manager =  LoginManager()
 login_manager.login_view = "login"
-login_user.current_user = current_user
 
 #DATA MODEL
 # USER
