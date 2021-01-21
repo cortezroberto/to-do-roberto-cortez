@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <div class="box mt-6">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }} Go to <a href="{{ url_for('login') }}">login page</a>.
+            </div>
+        {% endif %}
+        {% endwith %}
+        <form action="/signup" method="POST">
+            <span class="icon has-text-grey my-6">
+                <i class="fas fa-user-alt fa-6x"></i>
+            </span>
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input" type="email" name="email" id=""email"" placeholder="Email" autofocus="">
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input" type="text" name="userName" id="userName" placeholder="Name" autofocus="">
+                    <span class="icon is-left">
+                        <i class="fas fa-user-alt"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input " type="password" name="password" id="password" placeholder="Password">
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+            </div>
+            <!-- BUTTONS -->
+            <div class="field is-grouped has-addons has-addons-centered">
+                <p class="control">
+                    <a href="../" class="button is-danger is-outlined">
+                        Back
+                    </a>
+                </p>
+                <p class="control">
+                    <button class="button is-block is-primary">Sign Up</button>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

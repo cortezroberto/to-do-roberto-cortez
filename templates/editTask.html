@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <div class="box">
+        <h3 class="subtitle has-text-primary is-unselectable">
+            <span class="icon is-small mr-2">
+                <i class="fas fa-tasks"></i>
+            </span>
+            Edit Task:
+            {{ tasks.taskName }}
+        </h3>
+        <form action="{{ url_for('updateTask') }}" method='POST'>
+            <div>
+                <input type="hidden" name="idTask" id="idTask" value="{{ tasks.idTask }}">
+                <label class="label">New name</label>
+                <input class="input" type="text" name="taskName" id="taskName" value="{{ tasks.taskName }}" autofocus="">
+            </div>
+            <!-- BUTTONS -->
+            <div class="field is-grouped has-addons has-addons-centered mt-6">
+                <p class="control">
+                    <a href="/../todo" class="button is-danger is-outlined">
+                        Cancel
+                    </a>
+                </p>
+                <p class="control">
+                    <button class="button is-block is-primary">Save</button>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

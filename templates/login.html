@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <div class="box mt-6">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="notification is-danger">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+        {% endwith %}
+        <form method="POST" action="login">
+            <span class="icon has-text-grey my-6">
+                <i class="fas fa-user-alt fa-6x"></i>
+            </span>
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input" type="email" name="email" placeholder="Your email" autofocus="">
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control has-icons-left">
+                    <input class="input" type="password" name="password" placeholder="Your password">
+                    <span class="icon is-small is-left">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="checkbox">
+                    <input type="checkbox">
+                    Remember me
+                </label>
+            </div>
+            <!-- BUTTONS -->
+            <div class="field is-grouped has-addons has-addons-centered">
+                <p class="control">
+                    <a href="/../todo" class="button is-danger is-outlined">
+                        Back
+                    </a>
+                </p>
+                <p class="control">
+                    <button class="button is-block is-primary">Login</button>
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

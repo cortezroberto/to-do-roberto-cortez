@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block content %}
+    <section class="section">
+        <div class="columns">
+            <div class="column mr-6">
+                <h3 class="subtitle is-primary is-unselectable" style="color:#00d1b2">Add a task!</h3>
+                <form id="add-item-form"  action="/add" method="POST">
+                    <div class="columns">
+                        <div class="column">
+                            <div class="select is-primary">
+                                <select class="has-text-grey" id="category-select" name="category" id="category" required>
+                                    <option value="" selected disabled>Choose list:</option>
+                                    {% for category in categories %}
+                                    {% if category != category_now and category.id != 2 %}
+                                    <option value="{{ category.idCategory }}">{{ category.categoryName }}</option>
+                                    {% endif %}
+                                    {% endfor%}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="column is-two-fifths">
+                            <input class="input is-primary is-normal" type="text" name="name" id="name" placeholder="Enter name">
+                        </div>
+                        <div class="column">
+                            <button class="button is-primary" type="submit">Add</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="column ml-6">
+                <h3 class="subtitle is-unselectable" style="color:#00d1b2">New List:</h3>
+                <form action="/addCategory" method="POST">
+                    <div class="columns">
+                        <div class="column">
+
+                        </div>
+                        <div class="column ml-6 is-two-fifths">
+                            <input class="input is-primary type="text" name="nameCat" id="nameCat" placeholder="Enter list name">
+                        </div>
+                        <div class="column">
+                            <button class="button is-primary" type="submit">Add</button>                            
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>  
+    <section class="mt-3">
+        <div class="container">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="notification is-danger">
+                    {{ messages[0] }}
+                </div>
+            {% endif %}
+            {% endwith %}
+            <div class="columns is-multiline">
+            {% for r in categories %}
+                <div class="column">
+                    <table class="table is-hoverable">
+                        <tbody>
+                            <!-- LISTS -->
+                            <tr class="is-selected ">
+                                <td class="has-text-weight-bold is-unselectable">{{r.categoryName}}</td>
+                                <td>
+                                    <a href="editCategory/{{ r.idCategory }}">
+                                        <span class="icon is-small">
+                                            <i class="far fa-edit"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="deleteCategory/{{ r.idCategory }}">
+                                        <span class="icon is-small">
+                                            <i class="far fa-trash-alt"></i>
+                                        </span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <!-- TASKS -->
+                                {% for t in tasks%}
+                                <tr>
+                                    {% if t.taskStatus == False and t.idCat == r.idCategory %}
+                                    <td class="is-unselectable">{{t.taskName}}</td>
+                                    <td>
+                                        <a href="/editTask/{{ t.idTask }}">
+                                            <span class="icon is-small has-text-warning">
+                                                <i class="far fa-edit"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="/delete/{{ t.idTask }}">
+                                            <span class="icon is-small has-text-danger">
+                                                <i class="far fa-trash-alt"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="/cross/{{ t.idTask }}">
+                                            <span class="icon is-small has-text-success">
+                                                <i class="far fa-check-circle"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                    {% endif %}
+                                    {% if t.taskStatus == True and t.idCat == r.idCategory %}
+                                    <td class="is-unselectable"><strike>{{t.taskName}}</strike></td>
+                                    <td>
+                                        <a href="/editTask/{{ t.idTask }}">
+                                            <span class="icon is-small has-text-warning">
+                                                <i class="far fa-edit"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="delete/{{ t.idTask }}">
+                                            <span class="icon is-small has-text-danger">
+                                                <i class="far fa-trash-alt"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a href="cross/{{ t.idTask }}">
+                                            <span class="icon is-small has-text-danger">
+                                                <i class="fas fa-undo-alt"></i>
+                                            </span>
+                                        </a>
+                                    </td>
+                                    {% endif %}
+                                </tr>
+                                {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock %}
