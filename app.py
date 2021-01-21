@@ -6,8 +6,8 @@ app = Flask(__name__)
 
 # POSTGRESS CONECCTION 
 app.config['SECRET_KEY'] = 'mysecretkey'
-# app.config['SQLALCHEMY_DATABASE_URI']='postgres://kcbngmnemhoxxq:a068f05edef1310223b77d272a1fbeb3ac62eb726a5667a58f76e83aac96219a@ec2-54-144-45-5.compute-1.amazonaws.com:5432/debmil49qirpo4'
-app.config['SQLALCHEMY_DATABASE_URI']='postgresql+psycopg2://postgres:12345@localhost:5432/db_todolist'
+app.config['SQLALCHEMY_DATABASE_URI']='postgres://kcbngmnemhoxxq:a068f05edef1310223b77d272a1fbeb3ac62eb726a5667a58f76e83aac96219a@ec2-54-144-45-5.compute-1.amazonaws.com:5432/debmil49qirpo4'
+# app.config['SQLALCHEMY_DATABASE_URI']='postgresql+psycopg2://postgres:12345@localhost:5432/db_todolist'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 db = SQLAlchemy(app) # SQLAlchemy Object
 
