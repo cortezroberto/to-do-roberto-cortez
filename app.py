@@ -55,7 +55,7 @@ class Task(db.Model):
 # INDEX
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html", current_user = current_user )
 
 # TO-DO
 @app.route('/todo')
