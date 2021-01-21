@@ -56,7 +56,7 @@ class Task(db.Model):
 # INDEX
 @app.route('/')
 def index():
-    return render_template("index.html" )
+    return render_template("index.html", current_user = current_user)
 
 # TO-DO
 @app.route('/todo')
@@ -64,7 +64,7 @@ def index():
 def todo():
     qry = Category.query.all()
     qryT = Task.query.all()
-    return render_template("todo.html",categories = qry, tasks = qryT, current_user = current_user)
+    return render_template("todo.html",categories = qry, tasks = qryT)
 
 # SIGN UP
 @app.route('/signup')
