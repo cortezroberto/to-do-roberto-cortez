@@ -231,6 +231,6 @@ def deleteCategory(cat_id):
 
 # MAIN APP
 if __name__=='__main__':
-    # db.create_all()
+    db.create_all()
     login_manager.init_app(app)
     app.run(debug=True)
