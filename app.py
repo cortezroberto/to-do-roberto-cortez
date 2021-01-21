@@ -6,14 +6,15 @@ app = Flask(__name__)
 
 # POSTGRESS CONECCTION 
 app.config['SECRET_KEY'] = 'mysecretkey'
-app.config['SQLALCHEMY_DATABASE_URI']='postgres://kcbngmnemhoxxq:a068f05edef1310223b77d272a1fbeb3ac62eb726a5667a58f76e83aac96219a@ec2-54-144-45-5.compute-1.amazonaws.com:5432/debmil49qirpo4'
-# app.config['SQLALCHEMY_DATABASE_URI']='postgresql+psycopg2://postgres:12345@localhost:5432/db_todolist'
+# app.config['SQLALCHEMY_DATABASE_URI']='postgres://kcbngmnemhoxxq:a068f05edef1310223b77d272a1fbeb3ac62eb726a5667a58f76e83aac96219a@ec2-54-144-45-5.compute-1.amazonaws.com:5432/debmil49qirpo4'
+app.config['SQLALCHEMY_DATABASE_URI']='postgresql+psycopg2://postgres:12345@localhost:5432/db_todolist'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS']= False
 db = SQLAlchemy(app) # SQLAlchemy Object
 
 # LOGIN MANAGER
 login_manager =  LoginManager()
 login_manager.login_view = "login"
+login_user.current_user = current_user
 
 #DATA MODEL
 # USER
@@ -55,7 +56,7 @@ class Task(db.Model):
 # INDEX
 @app.route('/')
 def index():
-    return render_template("index.html", current_user = current_user )
+    return render_template("index.html" )
 
 # TO-DO
 @app.route('/todo')
@@ -68,7 +69,7 @@ def todo():
 # SIGN UP
 @app.route('/signup')
 def signup():
-    return render_template("signup.html", current_user = current_user)
+    return render_template("signup.html")
 
 # SIGN UP
 @app.route('/signup', methods=["POST"])
@@ -118,7 +119,7 @@ def load_user(idUser):
 # LOGIN
 @app.route('/login')
 def login():
-    return render_template("login.html", current_user = current_user)
+    return render_template("login.html")
 
 # LOGIN
 @app.route('/login', methods=["POST"])
@@ -131,7 +132,7 @@ def login_post():
         flash('Please check your login credentials and try again.')
         return redirect(url_for('login'))
     #Creates coockie and session
-    login_user(user, remember=remember, current_user = current_user)
+    login_user(user, remember=remember)
     return redirect(url_for('todo'))
 
 # LOGOUT
@@ -166,7 +167,7 @@ def cross(task_id):
 @login_required
 def editTask(idTask):
     task = Task.query.filter_by(idTask=int(idTask)).first()
-    return render_template("editTask.html",tasks = task, current_user = current_user)
+    return render_template("editTask.html",tasks = task)
 
 # UPDATE TASK METHOD
 @app.route('/updateTask', methods=['GET','POST'])
@@ -176,7 +177,7 @@ def updateTask():
         qry = Task.query.get(request.form['idTask'])
         qry.taskName = request.form['taskName']
         db.session.commit()
-        return redirect(url_for('todo'), current_user = current_user)
+        return redirect(url_for('todo'))
 
 # DELETE TASK METHOD
 @app.route("/delete/<int:task_id>")
@@ -185,7 +186,7 @@ def delete(task_id):
     task = Task.query.filter_by(idTask=task_id).first()
     db.session.delete(task)
     db.session.commit()
-    return redirect(url_for("todo"), current_user = current_user)
+    return redirect(url_for("todo"))
 
 # ADD CATEGORY METHOD
 @app.route("/addCategory", methods=["POST"])
@@ -195,14 +196,14 @@ def addCategory():
     new_cat = Category(categoryName=name,categoryStatus=False)
     db.session.add(new_cat)
     db.session.commit()
-    return redirect(url_for("todo"), current_user = current_user)
+    return redirect(url_for("todo"))
 
 # EDIT CATEGORY METHOD
 @app.route("/editCategory/<idCategory>")
 @login_required
 def editCategory(idCategory):
     cat = Category.query.filter_by(idCategory=int(idCategory)).first()
-    return render_template("editCategory.html",categories = cat, current_user = current_user)
+    return render_template("editCategory.html",categories = cat)
 
 # UPDATE CATEGORY METHOD
 @app.route('/updateCategory', methods=['GET','POST'])
@@ -224,7 +225,7 @@ def deleteCategory(cat_id):
         if task != cat:
             db.session.delete(cat)
             db.session.commit()
-            return redirect(url_for("todo"), current_user = current_user)
+            return redirect(url_for("todo"))
     except:
         flash("You can't delete a List unless it doesn't has tasks!")
         return redirect(url_for("todo"))    
