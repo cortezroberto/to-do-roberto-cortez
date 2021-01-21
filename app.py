@@ -89,7 +89,7 @@ def signup_post():
 @app.route('/profile',methods=['GET','POST'])
 @login_required
 def profile():
-    return render_template("profile.html", id = current_user.idUser, name= current_user.userName, email = current_user.email)
+    return render_template("profile.html", current_user = current_user,id = current_user.idUser, name= current_user.userName, email = current_user.email)
 
 # UPDATE PPROFILE
 @app.route('/updateProfile', methods=['GET','POST'])
@@ -118,7 +118,7 @@ def load_user(idUser):
 # LOGIN
 @app.route('/login')
 def login():
-    return render_template("login.html")
+    return render_template("login.html", current_user = current_user)
 
 # LOGIN
 @app.route('/login', methods=["POST"])
@@ -166,7 +166,7 @@ def cross(task_id):
 @login_required
 def editTask(idTask):
     task = Task.query.filter_by(idTask=int(idTask)).first()
-    return render_template("editTask.html",tasks = task)
+    return render_template("editTask.html",tasks = task, current_user = current_user)
 
 # UPDATE TASK METHOD
 @app.route('/updateTask', methods=['GET','POST'])
@@ -176,7 +176,7 @@ def updateTask():
         qry = Task.query.get(request.form['idTask'])
         qry.taskName = request.form['taskName']
         db.session.commit()
-        return redirect(url_for('todo'))
+        return redirect(url_for('todo'), current_user = current_user)
 
 # DELETE TASK METHOD
 @app.route("/delete/<int:task_id>")
@@ -185,7 +185,7 @@ def delete(task_id):
     task = Task.query.filter_by(idTask=task_id).first()
     db.session.delete(task)
     db.session.commit()
-    return redirect(url_for("todo"))
+    return redirect(url_for("todo"), current_user = current_user)
 
 # ADD CATEGORY METHOD
 @app.route("/addCategory", methods=["POST"])
@@ -195,14 +195,14 @@ def addCategory():
     new_cat = Category(categoryName=name,categoryStatus=False)
     db.session.add(new_cat)
     db.session.commit()
-    return redirect(url_for("todo"))
+    return redirect(url_for("todo"), current_user = current_user)
 
 # EDIT CATEGORY METHOD
 @app.route("/editCategory/<idCategory>")
 @login_required
 def editCategory(idCategory):
     cat = Category.query.filter_by(idCategory=int(idCategory)).first()
-    return render_template("editCategory.html",categories = cat)
+    return render_template("editCategory.html",categories = cat, current_user = current_user)
 
 # UPDATE CATEGORY METHOD
 @app.route('/updateCategory', methods=['GET','POST'])
@@ -224,7 +224,7 @@ def deleteCategory(cat_id):
         if task != cat:
             db.session.delete(cat)
             db.session.commit()
-            return redirect(url_for("todo"))
+            return redirect(url_for("todo"), current_user = current_user)
     except:
         flash("You can't delete a List unless it doesn't has tasks!")
         return redirect(url_for("todo"))    
