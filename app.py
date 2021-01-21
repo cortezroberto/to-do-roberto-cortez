@@ -118,7 +118,7 @@ def load_user(idUser):
 # LOGIN
 @app.route('/login')
 def login():
-    return render_template("login.html")
+    return render_template("login.html", current_user = current_user)
 
 # LOGIN
 @app.route('/login', methods=["POST"])
