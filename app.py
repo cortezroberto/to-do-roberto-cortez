@@ -229,7 +229,7 @@ def deleteCategory(cat_id):
         flash("You can't delete a List unless it doesn't has tasks!")
         return redirect(url_for("todo"))    
 
-# MAIN
+# MAIN APP
 if __name__=='__main__':
     db.create_all()
     login_manager.init_app(app)
