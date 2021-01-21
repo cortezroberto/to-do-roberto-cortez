@@ -132,7 +132,7 @@ def login_post():
         return redirect(url_for('login'))
     #Creates coockie and session
     login_user(user, remember=remember)
-    return redirect(url_for('todo'))
+    return redirect(url_for('todo'), current_user = current_user)
 
 # LOGOUT
 @app.route('/logout')
