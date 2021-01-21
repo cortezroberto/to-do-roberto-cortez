@@ -131,7 +131,7 @@ def login_post():
         flash('Please check your login credentials and try again.')
         return redirect(url_for('login'))
     #Creates coockie and session
-    login_user(user, remember=remember, current_user = current_user)
+    login_user(user, remember=remember)
     return redirect(url_for('todo'))
 
 # LOGOUT
