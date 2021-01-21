@@ -64,7 +64,7 @@ def index():
 def todo():
     qry = Category.query.all()
     qryT = Task.query.all()
-    return render_template("todo.html",categories = qry, tasks = qryT)
+    return render_template("todo.html",categories = qry, tasks = qryT, current_user = current_user)
 
 # SIGN UP
 @app.route('/signup')
@@ -90,7 +90,7 @@ def signup_post():
 @app.route('/profile',methods=['GET','POST'])
 @login_required
 def profile():
-    return render_template("profile.html", current_user = current_user,id = current_user.idUser, name= current_user.userName, email = current_user.email)
+    return render_template("profile.html",id = current_user.idUser, name= current_user.userName, email = current_user.email)
 
 # UPDATE PPROFILE
 @app.route('/updateProfile', methods=['GET','POST'])
@@ -233,5 +233,5 @@ def deleteCategory(cat_id):
 # MAIN APP
 if __name__=='__main__':
     db.create_all()
-    login_manager.init_app(app)
     app.run(debug=True)
+    login_manager.init_app(app)
