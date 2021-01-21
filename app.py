@@ -63,7 +63,7 @@ def index():
 def todo():
     qry = Category.query.all()
     qryT = Task.query.all()
-    return render_template("todo.html",categories = qry, tasks = qryT)
+    return render_template("todo.html",categories = qry, tasks = qryT, current_user = current_user)
 
 # SIGN UP
 @app.route('/signup')
