@@ -68,7 +68,7 @@ def todo():
 # SIGN UP
 @app.route('/signup')
 def signup():
-    return render_template("signup.html")
+    return render_template("signup.html", current_user = current_user)
 
 # SIGN UP
 @app.route('/signup', methods=["POST"])
