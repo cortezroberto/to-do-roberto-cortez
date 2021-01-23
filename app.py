@@ -19,7 +19,7 @@ login_manager =  LoginManager(app)
 login_manager.login_view = "login"
 
 # EMAIL
-app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'todolist2021s@gmail.com'
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
