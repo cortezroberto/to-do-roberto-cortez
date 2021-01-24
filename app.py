@@ -103,7 +103,7 @@ def signup_post():
     msg = "Thanks for registering!"
     server = smtplib.SMTP("smtp.gmail.com",587)
     server.starttls()
-    server.login("todolist2021s@gmail.com","Todolist21")
+    server.login("todolist2021s@gmail.com","mlzlbfuutbmixbzn")
     server.sendmail("todolist2021s@gmail.com",email,msg)
     return redirect(url_for("login"))
 
