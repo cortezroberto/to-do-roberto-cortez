@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, login_user, UserMixin, login_required, current_user, logout_user
 import os
+import smtplib
 from flask_mail import Mail, Message
 
 app = Flask(__name__)
@@ -19,13 +20,13 @@ login_manager =  LoginManager(app)
 login_manager.login_view = "login"
 
 # EMAIL
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'todolist2021s@gmail.com'
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-mail = Mail(app)
+# app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+# app.config['MAIL_PORT'] = 465
+# app.config['MAIL_USERNAME'] = 'todolist2021s@gmail.com'
+# app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+# app.config['MAIL_USE_TLS'] = False
+# app.config['MAIL_USE_SSL'] = True
+# mail = Mail(app)
 
 #DATA MODEL
 # USER
@@ -95,10 +96,15 @@ def signup_post():
     new_user = User(email=email,userName=userName, password = generate_password_hash(password, method="sha256"))
     db.session.add(new_user)
     db.session.commit()
-    msg = Message("Thanks for registering!", sender="todolist2021s@gmail.com", recipients=[email])
-    msg.body = "To-Do"
-    msg.html = "<p>Start creating to-do's!</p>"
-    mail.send(msg)
+    # msg = Message("Thanks for registering!", sender="todolist2021s@gmail.com", recipients=[email])
+    # msg.body = "To-Do"
+    # msg.html = "<p>Start creating to-do's!</p>"
+    # mail.send(msg)
+    msg = "Thanks for registering!"
+    server = smtplib.SMTP("smtp.gmail.com",587)
+    server.starttls()
+    server.login("todolist2021s@gmail.com","Todolist21")
+    server.sendmail("todolist2021s@gmail.com", email, msg)
     return redirect(url_for("login"))
 
 # PROFILE
