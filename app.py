@@ -18,14 +18,14 @@ db = SQLAlchemy(app) # SQLAlchemy Object
 login_manager =  LoginManager(app)
 login_manager.login_view = "login"
 
-# EMAIL
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'todolist2021s@gmail.com'
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-mail = Mail(app)
+# # EMAIL
+# app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+# app.config['MAIL_PORT'] = 465
+# app.config['MAIL_USERNAME'] = 'todolist2021s@gmail.com'
+# app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+# app.config['MAIL_USE_TLS'] = False
+# app.config['MAIL_USE_SSL'] = True
+# mail = Mail(app)
 
 #DATA MODEL
 # USER
@@ -95,10 +95,10 @@ def signup_post():
     new_user = User(email=email,userName=userName, password = generate_password_hash(password, method="sha256"))
     db.session.add(new_user)
     db.session.commit()
-    msg = Message("Thanks for registering!", sender="todolist2021s@gmail.com", recipients=[email])
-    msg.body = ""
-    msg.html = "<p>Start creating to-do's!</p>"
-    mail.send(msg)
+    # msg = Message("Thanks for registering!", sender="todolist2021s@gmail.com", recipients=[email])
+    # msg.body = ""
+    # msg.html = "<p>Start creating to-do's!</p>"
+    # mail.send(msg)
     return redirect(url_for("login"))
 
 # PROFILE
