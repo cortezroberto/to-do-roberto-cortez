@@ -102,6 +102,8 @@ def signup_post():
     # mail.send(msg)
     msg = """\
             Subject: Hi there! 
+
+            
             Thanks for registering!
             Start creating To-Do's :)"""
     server = smtplib.SMTP("smtp.gmail.com",587)
